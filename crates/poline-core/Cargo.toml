@@ -1,0 +1,18 @@
+[package]
+name = "poline-core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+decorum = "0.3"
+rand = "0.8"
+thiserror = "1.0"
+
+[profile.release]
+# Tell `rustc` to optimize for small code size.
+opt-level = "s"

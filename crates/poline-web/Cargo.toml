@@ -1,0 +1,11 @@
+[package]
+name = "poline-web"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+poline-core = { path = "../poline-core"}
+getrandom = { version = "0.2", features = ["js"] }
+wasm-bindgen = "0.2"
