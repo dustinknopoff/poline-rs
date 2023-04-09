@@ -1,10 +1,13 @@
-
 use std::ops::Index;
 
 use color_point::ColorPoint;
 use decorum::R32;
+use serde::Deserialize;
+use serde::Serialize;
 use types::{PartialVector3, Vector3};
 use utils::{distance, optional_vector3, vectors_on_line};
+use wasm_bindgen::prelude::wasm_bindgen;
+use wasm_bindgen::JsValue;
 
 use crate::color_point::ColorPointCollection;
 
@@ -13,11 +16,13 @@ pub(crate) mod positions;
 pub(crate) mod types;
 pub(crate) mod utils;
 
-pub use positions::PositionScale;
+pub use positions::{position_from_scale, PositionScale};
+pub use utils::number_as_enum;
 pub use utils::random_hsl_pair;
 pub use utils::random_hsl_triple;
 
-#[derive(thiserror::Error, Debug)]
+#[wasm_bindgen]
+#[derive(thiserror::Error, Debug, Serialize, Deserialize)]
 pub enum PolineErrors {
     #[error("At least one is required")]
     MissingArgument,
@@ -25,15 +30,17 @@ pub enum PolineErrors {
     PointNotFound,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct PolineOptions {
-    anchor_colors: Option<Vec<Vector3>>,
-    num_points: usize,
-    position_function: PositionScale,
-    position_function_x: Option<PositionScale>,
-    position_function_y: Option<PositionScale>,
-    position_function_z: Option<PositionScale>,
-    inverted_lightness: bool,
-    closed_loop: bool,
+    pub anchor_colors: Option<Vec<Vector3>>,
+    pub num_points: usize,
+    pub position_function: PositionScale,
+    pub position_function_x: Option<PositionScale>,
+    pub position_function_y: Option<PositionScale>,
+    pub position_function_z: Option<PositionScale>,
+    pub inverted_lightness: bool,
+    pub closed_loop: bool,
 }
 
 impl Default for PolineOptions {
@@ -51,6 +58,8 @@ impl Default for PolineOptions {
     }
 }
 
+#[wasm_bindgen]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Poline {
     #[allow(dead_code)]
     needs_update: bool,
@@ -67,8 +76,8 @@ pub struct Poline {
     inverted_lightness: bool,
 }
 
-impl Poline {
-    pub fn new(options: PolineOptions) -> Self {
+impl From<PolineOptions> for Poline {
+    fn from(options: PolineOptions) -> Self {
         let anchor_colors = options
             .anchor_colors
             .unwrap_or(random_hsl_pair(None, None, None));
@@ -80,7 +89,7 @@ impl Poline {
                     xyz: None,
                     color: Some(point),
                     inverted_lightness: options.inverted_lightness,
-                }).expect("We're guranteeing we have xyz or color")
+                })
             })
             .collect();
         let num_points = options.num_points + 2;
@@ -116,7 +125,10 @@ impl Poline {
             points,
         }
     }
+}
 
+#[wasm_bindgen]
+impl Poline {
     fn _update_anchor_pairs(
         _loop: bool,
         anchor_points: Vec<ColorPoint>,
@@ -162,7 +174,7 @@ impl Poline {
                         xyz: Some(point),
                         color: None,
                         inverted_lightness,
-                    }).expect("We're guranteeing we have xyz or color")
+                    })
                 })
                 .collect()
             })
@@ -189,7 +201,7 @@ impl Poline {
         initial: ColorPointCollection,
         insert_at_index: Option<usize>,
     ) -> ColorPoint {
-        let new_anchor = ColorPoint::new(initial).expect("We're guranteeing we have xyz or color");
+        let new_anchor = ColorPoint::new(initial);
         if let Some(index) = insert_at_index {
             self.anchor_points.insert(index, new_anchor);
         } else {
@@ -204,13 +216,12 @@ impl Poline {
         self.update_anchor_pairs();
     }
 
-    pub fn remove_anchor_point(&mut self, point: ColorPoint) -> Result<(),PolineErrors> {
+    pub fn remove_anchor_point(&mut self, point: ColorPoint) {
         let index = self.anchor_points.iter().position(|&p| p == point);
         if let Some(index) = index {
             self.remove_anchor_point_at_index(index);
-            Ok(())
         } else {
-            Err(PolineErrors::PointNotFound)
+            panic!("Point not found")
         }
     }
 
@@ -231,13 +242,12 @@ impl Poline {
         point
     }
 
-    pub fn update_anchor_point(&mut self, point: ColorPoint, initial: ColorPointCollection) -> Result<(), PolineErrors> {
+    pub fn update_anchor_point(&mut self, point: ColorPoint, initial: ColorPointCollection) {
         let index = self.anchor_points.iter().position(|&p| p == point);
         if let Some(index) = index {
             self.update_anchor_point_at_index(index, initial);
-            Ok(())
         } else {
-            Err(PolineErrors::PointNotFound)
+            panic!("Point not found")
         }
     }
 
@@ -268,6 +278,81 @@ impl Poline {
             .for_each(|point| point.shift_hue(shift));
         self.update_anchor_pairs();
     }
+
+    pub fn colors(&self) -> JsValue {
+        let colors: Vec<Vector3> = self
+            .flattened_points()
+            .iter()
+            .map(|point| point.color)
+            .collect();
+
+        if self.connect_last_and_first_anchor {
+            serde_wasm_bindgen::to_value(&colors.split_last().unwrap().1.to_vec()).unwrap()
+        } else {
+            serde_wasm_bindgen::to_value(&colors).unwrap()
+        }
+    }
+
+    pub fn anchor_points(&self) -> JsValue {
+        serde_wasm_bindgen::to_value(&self.anchor_points).unwrap()
+    }
+
+    pub fn colors_css(&self) -> JsValue {
+        let colors: Vec<String> = self
+            .flattened_points()
+            .iter()
+            .map(|point| point.hsl_css())
+            .collect();
+
+        if self.connect_last_and_first_anchor {
+            serde_wasm_bindgen::to_value(&colors.split_last().unwrap().1.to_vec()).unwrap()
+        } else {
+            serde_wasm_bindgen::to_value(&colors).unwrap()
+        }
+    }
+
+    pub fn flattened_points_web(&self) -> JsValue {
+        serde_wasm_bindgen::to_value(
+            &self
+                .points
+                .clone()
+                .into_iter()
+                .flatten()
+                .enumerate()
+                .filter(|(idx, _)| {
+                    if idx != &0 {
+                        idx % self.num_points == 0
+                    } else {
+                        true
+                    }
+                })
+                .map(|(_, elem)| elem)
+                .collect::<Vec<ColorPoint>>(),
+        )
+        .unwrap()
+    }
+
+    pub fn set_position_fn_x(&mut self, scale_num: usize) {
+        let scale = number_as_enum(scale_num);
+        self.position_function_x = scale;
+    }
+
+    pub fn set_position_fn_y(&mut self, scale_num: usize) {
+        let scale = number_as_enum(scale_num);
+        self.position_function_z = scale;
+    }
+
+    pub fn set_position_fn_z(&mut self, scale_num: usize) {
+        let scale = number_as_enum(scale_num);
+        self.position_function_z = scale;
+    }
+
+    pub fn set_position_fn(&mut self, scale_num: usize) {
+        let scale = number_as_enum(scale_num);
+        self.position_function_x = scale;
+        self.position_function_y = scale;
+        self.position_function_z = scale;
+    }
 }
 
 impl Poline {
@@ -286,33 +371,5 @@ impl Poline {
             })
             .map(|(_, elem)| elem)
             .collect()
-    }
-
-    pub fn colors(&self) -> Vec<Vector3> {
-        let colors: Vec<Vector3> = self
-            .flattened_points()
-            .iter()
-            .map(|point| point.color)
-            .collect();
-
-        if self.connect_last_and_first_anchor {
-            colors.split_last().unwrap().1.to_vec()
-        } else {
-            colors
-        }
-    }
-
-    pub fn colors_css(&self) -> Vec<String> {
-        let colors: Vec<String> = self
-            .flattened_points()
-            .iter()
-            .map(|point| point.hsl_css())
-            .collect();
-
-        if self.connect_last_and_first_anchor {
-            colors.split_last().unwrap().1.to_vec()
-        } else {
-            colors
-        }
     }
 }

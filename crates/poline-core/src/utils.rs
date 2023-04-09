@@ -12,6 +12,21 @@ pub fn optional_vector3(vector3: Vector3) -> PartialVector3 {
     PartialVector3(Some(x), Some(y), Some(z))
 }
 
+pub fn number_as_enum(scale_num: usize) -> PositionScale {
+    match scale_num {
+        0 => PositionScale::Linear,
+        1 => PositionScale::Exponential,
+        2 => PositionScale::Cubic,
+        3 => PositionScale::Quadratic,
+        4 => PositionScale::Quartic,
+        5 => PositionScale::Sinusoidal,
+        6 => PositionScale::Asinusoidal,
+        7 => PositionScale::Arc,
+        8 => PositionScale::SmoothStep,
+        _ => unreachable!()
+    }
+}
+
 ///
 /// Converts the given (x, y, z) coordinate to an HSL color
 /// The (x, y) values are used to calculate the hue, while the z value is used as the saturation

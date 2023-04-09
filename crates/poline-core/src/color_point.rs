@@ -1,17 +1,29 @@
 
+use serde::{Serialize, Deserialize};
+use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
+
 use crate::{
     types::Vector3,
     utils::{hsl_to_point, point_to_hsl}, PolineErrors,
 };
 
-#[derive(Debug, Clone, Copy)]
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub struct ColorPointCollection {
     pub xyz: Option<Vector3>,
     pub color: Option<Vector3>,
     pub inverted_lightness: bool,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[wasm_bindgen]
+impl ColorPointCollection {
+    pub fn new(init: JsValue) -> Self {
+        serde_wasm_bindgen::from_value(init).unwrap()
+    }
+}
+
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct ColorPoint {
     pub x: f32,
     pub y: f32,
@@ -32,8 +44,10 @@ impl Default for ColorPoint {
     }
 }
 
+
+#[wasm_bindgen]
 impl ColorPoint {
-    pub fn new(initial: ColorPointCollection) -> Result<Self, PolineErrors> {
+    pub fn new(initial: ColorPointCollection) -> Self {
         let mut result = Self::default();
         result._inverted_lightness = initial.inverted_lightness;
         match (initial.xyz, initial.color) {
@@ -42,7 +56,7 @@ impl ColorPoint {
                 result.y = y;
                 result.z = z;
                 result.color = point_to_hsl(Vector3(x, y, z), initial.inverted_lightness);
-                Ok(result)
+                result
             }
             (_, Some(color)) => {
                 result.color = color;
@@ -50,9 +64,9 @@ impl ColorPoint {
                 result.x = x;
                 result.y = y;
                 result.z = z;
-                Ok(result)
+                result
             }
-            _ => Err(PolineErrors::MissingArgument)
+            _ => unreachable!()
         }
     }
 
@@ -106,7 +120,7 @@ mod tests {
             xyz: Some(Vector3(1.0, 1.0, 1.0)),
             color: None,
             inverted_lightness: true,
-        }).unwrap();
+        });
         assert_eq!(color_point.color, Vector3(
             45.0,
         1.0,
@@ -121,20 +135,10 @@ mod tests {
             xyz: None,
             color: Some(Vector3(1.0, 1.0, 1.0)),
             inverted_lightness: true,
-        }).unwrap();
+        });
         assert_eq!(color_point.position(), Vector3(
            0.5,0.5,1.0
         )
         );
-    }
-
-    #[test]
-    fn new_colorpoint_with_missing_args() {
-        let color_point = ColorPoint::new(ColorPointCollection {
-            xyz: None,
-            color: None,
-            inverted_lightness: true,
-        });
-        assert!(color_point.is_err());
     }
 }

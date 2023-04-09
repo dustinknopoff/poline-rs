@@ -1064,6 +1064,7 @@
                 color: var(--dark);
             }
         }
+
     </style>
 </head>
 
@@ -1166,7 +1167,7 @@
                     <!--p>
             As demonstrated on the illustration, "<strong class="t">Poline</strong>"
             works by drawing lines between the <strong>anchors</strong>. The number of <strong>points</strong>
-            determines the number of colors generated between each pair of anchors. 
+            determines the number of colors generated between each pair of anchors.
             The more <strong>points</strong> you have, the more colors you will get.
           </p-->
                     <pre class="code-ex"><code class="language-js" data-code="points"></code></pre>
@@ -1189,8 +1190,8 @@
         <div class="l-sec__inner" data-section="colorAt">
           <h2 id="colorAt">Color at Point</h2>
           <p>
-            You can also use "<strong class="t">Poline</strong>" to generate a single color at a specific point along the line. 
-            The <strong>colorAt</strong> method takes a value between 0 and 1 as an argument, 
+            You can also use "<strong class="t">Poline</strong>" to generate a single color at a specific point along the line.
+            The <strong>colorAt</strong> method takes a value between 0 and 1 as an argument,
             it refers to the position of the point along the sum of all lines.
           </p>
           <pre class="code-ex"><code class="language-js" data-code="points">poline.getColorAt(.4)</code></pre>
@@ -1222,7 +1223,7 @@
                         for you by omitting the 'anchorColors' argument. The
                         versatility of "<strong class="t">Poline</strong>" extends beyond its initial setup, as you can
                         also add anchors to your palette at any time using
-                        the '<strong>addAnchorPoint</strong>' method. This method accepts either a
+                        the '<strong>add_anchor_point</strong>' method. This method accepts either a
                         <strong>color</strong> as HSL array values or an array of <strong>X, Y, Z</strong> coordinates,
                         further expanding the possibilities of your color creation.
                     </p>
@@ -1242,7 +1243,7 @@
                     </p>
                     <p>
                         The ability to update existing <string>anchors</string> is made possible through the
-                        '<strong>updateAnchorPoint</strong>' method.
+                        '<strong>update_anchor_point</strong>' method.
                         This method accepts the <strong>reference to the anchor</strong> you wish to modify and either a
                         color in the form of <strong>HSL</strong>
                         representation or an <strong>XYZ</strong> position array.
@@ -1311,8 +1312,8 @@
                     </p>
                     <pre class="code-ex"><code class="language-js" data-code="positionFunctions"></code></pre>
                     <!--p>
-            The <strong>position functions</strong> are used to determine the position of the 
-            <strong>points</strong> between the <strong>anchors</strong>. The <strong>position functions</strong> 
+            The <strong>position functions</strong> are used to determine the position of the
+            <strong>points</strong> between the <strong>anchors</strong>. The <strong>position functions</strong>
             can be the same for XYZ (positionFunction) or different for each axis (positionFunctionX, positionFunctionY, positionFunctionZ).
           </p>
           <p>
@@ -1394,9 +1395,10 @@
                         color.
                         This method is used in the visualizer to select the closest anchor on click.
                     </p>
-                    <pre class="code-ex"><code class="language-js" data-code="closestAnchor">poline.getClosestAnchorPoint(
-  {xyz: [x, y, null], maxDistance: .1}
-)</code></pre>
+                    <pre class="code-ex"><code class="language-js"
+                            data-code="closestAnchor">poline.get_closest_anchor_point(
+                            {xyz: [x, y, null], maxDistance: .1}
+                            )</code></pre>
                     <p>
                         The <strong>maxDistance</strong> argument is optional and will return null if the closest anchor
                         is further away
@@ -1416,7 +1418,7 @@
                         <strong>hsl</strong> arrays or alternatively as an array of <strong>CSS</strong> strings.
                     </p>
                     <pre class="code-ex"><code class="language-js" data-code="getColors">poline.colors
-poline.colorsCSS</code></pre>
+                            poline.colorsCSS</code></pre>
                     <div class="l-sec__controls">
                         <figure class="l-sec__preview">
                             <figcaption>Colors as HSL</figcaption>
@@ -1429,7 +1431,7 @@ poline.colorsCSS</code></pre>
                 <div class="l-sec__inner" data-section="removeAnchor">
                     <h2 id="removeAnchor">Remove Anchors</h2>
                     <p>
-                        To remove an anchor, you can use the <strong>removeAnchorPoint</strong> method.
+                        To remove an anchor, you can use the <strong>remove_anchor_point</strong> method.
                         It either takes an <strong>anchor</strong> reference or an <strong>index</strong> as an
                         argument.
                     </p>
@@ -1489,8 +1491,8 @@ poline.colorsCSS</code></pre>
                         Alternatively you can clone it on <a href="https://github.com/meodai/poline" target="_blank"
                             rel="noopener noreferrer">GitHub</a>.
                     </p>
-                    <pre
-                        class="code-ex"><code class="language-js" data-code="installation">npm install poline</code></pre>
+                    <pre class="code-ex"><code class="language-js" data-code="installation">npm install poline</code>
+                    </pre>
                     <p>
                         You can also use the <a href="https://unpkg.com/poline" target="_blank"
                             rel="noopener noreferrer">unpkg CDN</a> to include the library in your project.
@@ -1501,9 +1503,9 @@ poline.colorsCSS</code></pre>
                         But you can also use the <strong>umd</strong> version if you prefer to use the
                         <strong>script</strong> tag.
                     </p>
-                    <pre class="code-ex"><code class="language-html" data-code="cdn">import { 
-  Poline 
-} from 'https://unpkg.com/poline?module'</code></pre>
+                    <pre class="code-ex"><code class="language-html" data-code="cdn">import {
+                            Poline
+                            } from 'https://unpkg.com/poline?module'</code></pre>
                 </div>
             </article>
 
@@ -1674,14 +1676,17 @@ poline.colorsCSS</code></pre>
 
     <script type="module">
         console.clear();
-        import { formatHex, converter } from 'https://cdn.skypack.dev/culori@^2.1.1';
+        import {formatHex, converter} from 'https://cdn.skypack.dev/culori@^2.1.1';
         import hljs from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/es/highlight.min.js';
 
-        import init,{
-            Poline,
-            PolineOptions,
+        import init, {
+            poline as poline_init,
             position_from_scale,
-        } from "./pkg/poline_rs.js";
+            PositionScale,
+            ColorPointCollection,
+            PartialVector3,
+            ColorPoint,
+        } from "./crates/poline-web/pkg/poline_web.js";
 
         async function run() {
             await init();
@@ -1693,29 +1698,29 @@ poline.colorsCSS</code></pre>
             const hueBasedModels = [{
                 key: 'okhsl',
                 label: 'OKHSL',
-                fn: (hsl) => { return { h: hsl[0], s: hsl[1], l: hsl[2] } },
+                fn: (hsl) => {return {h: hsl[0], s: hsl[1], l: hsl[2]}},
             },
             {
                 key: 'hsl',
                 label: 'HSL',
-                fn: (hsl) => { return { h: hsl[0], s: hsl[1], l: hsl[2] } },
+                fn: (hsl) => {return {h: hsl[0], s: hsl[1], l: hsl[2]}},
             }
                 , {
                 key: 'jch',
                 label: 'JCH',
-                fn: (hsl) => { return { j: hsl[2] * 0.222, c: hsl[1] * 0.190, h: hsl[0] } },
+                fn: (hsl) => {return {j: hsl[2] * 0.222, c: hsl[1] * 0.190, h: hsl[0]}},
             }, {
                 key: 'oklch',
                 label: 'OKLCH',
-                fn: (hsl) => { return { l: hsl[2] * 0.999, c: hsl[1] * 0.322, h: hsl[0] } },
+                fn: (hsl) => {return {l: hsl[2] * 0.999, c: hsl[1] * 0.322, h: hsl[0]}},
             }, {
                 key: 'lch',
                 label: 'LCH',
-                fn: (hsl) => { return { l: hsl[2] * 100, c: hsl[1] * 51.484, h: hsl[0] } },
+                fn: (hsl) => {return {l: hsl[2] * 100, c: hsl[1] * 51.484, h: hsl[0]}},
             }, {
                 key: 'dlch',
                 label: 'DLCH',
-                fn: (hsl) => { return { l: hsl[2] * 100, c: hsl[1] * 51.484, h: hsl[0] } },
+                fn: (hsl) => {return {l: hsl[2] * 100, c: hsl[1] * 51.484, h: hsl[0]}},
             }];
 
             let currentHueModel = 'hsl';
@@ -1775,15 +1780,15 @@ poline.colorsCSS</code></pre>
                 });
             });
 
-            let fnx = 'sinusoidalPosition';
-            let fny = 'quadraticPosition';
-            let fnz = 'linearPosition';
-            let fnAll = 'sinusoidalPosition';
+            let fnx = 'Sinusoidal';
+            let fny = 'Quadratic';
+            let fnz = 'Linear';
+            let fnAll = 'Sinusoidal';
 
             let invertedLightness = false;
 
             $selects.forEach($select => {
-                Object.keys(positionFunctions).forEach(fn => {
+                Object.keys(PositionScale).filter(fn => isNaN(parseInt(fn))).forEach(fn => {
                     const $option = document.createElement('option');
                     if ($select === $xSelect && fn === fnx) $option.selected = true;
                     if ($select === $ySelect && fn === fny) $option.selected = true;
@@ -1798,32 +1803,17 @@ poline.colorsCSS</code></pre>
             let steps = parseInt($steps[0].value);
 
             let startHue = Math.random() * 360;
-            console.log(new PolineOptions({
-                anchorColors: [
-                    [startHue, Math.random(), 0.8],
-                    [(startHue + 60 + Math.random() * 180) % 360, Math.random(), Math.random() * .2],
-                    [(startHue + 60 + Math.random() * 180) % 360, Math.random(), .8]
-                ],
-                numPoints: steps,
-                positionFunctionX: positionFunctions[fnx],
-                positionFunctionY: positionFunctions[fny],
-                positionFunctionZ: positionFunctions[fnz],
-                closedLoop: false,
-                invertedLightness: false,
-            }))
-            let poline = Poline.new(new PolineOptions({
-                anchorColors: [
+            let poline = poline_init({
+                /* anchorColors: [
                   [startHue, Math.random(), 0.8],
                   [(startHue + 60 + Math.random() * 180) % 360, Math.random(), Math.random() * .2],
                   [(startHue + 60 + Math.random() * 180) % 360, Math.random(), .8]
-                ],
+                ], */
+                positionFunction: PositionScale.Linear,
                 numPoints: steps,
-                positionFunctionX: positionFunctions[fnx],
-                positionFunctionY: positionFunctions[fny],
-                positionFunctionZ: positionFunctions[fnz],
                 closedLoop: false,
                 invertedLightness: false,
-            }));
+            });
 
             // favicon
             let $favicon = document.querySelector('[rel="icon"]');
@@ -1846,6 +1836,7 @@ poline.colorsCSS</code></pre>
 
 
             const paintFavicon = (i = 0) => {
+                console.log(poline)
                 parts = poline.colors().length;
                 fraction = 360 / parts;
 
@@ -1860,7 +1851,7 @@ poline.colorsCSS</code></pre>
                 for (let angle = 0; angle < 360; angle += fraction) {
                     let startAngle = (i + angle - 90 - fraction - overlapFix - (fraction * .5)) * Math.PI / 180;
                     let endAngle = (i + angle - 90 + overlapFix - (fraction * .5)) * Math.PI / 180;
-                    const color = poline.colorsCSS()[angle / fraction];
+                    const color = poline.colors_css()[angle / fraction];
                     context.beginPath();
                     context.moveTo(x, y);
                     context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
@@ -1896,19 +1887,19 @@ poline.colorsCSS</code></pre>
                 const $list = document.createElement('ol');
                 $list.classList.add('export__list');
 
-                const colorsHEX = poline.colors.map(color => formatHex(
-                    { mode: currentHueModel, ...currentModelFn(color) }
+                const colorsHEX = poline.colors().map(color => formatHex(
+                    {mode: currentHueModel, ...currentModelFn(color)}
                 ));
 
                 fetch(`https://api.color.pizza/v1/?values=${colorsHEX.map(c => c.replace('#', '')).join()
                     }&list=bestOf&noduplicates=true`).then(res => res.json())
                     .then(data => {
-                        let { colors, paletteTitle } = data;
+                        let {colors, paletteTitle} = data;
                         $export.innerHTML = `
           <h2 class="export__title">${paletteTitle}</h2>
           <ol class="export__list">
             ${colors.map(color => {
-                            const { requestedHex, name } = color;
+                            const {requestedHex, name} = color;
                             const index = colorsHEX.indexOf(requestedHex);
                             return `
               <li class="export__item" style="--c: ${requestedHex}">
@@ -1932,10 +1923,10 @@ poline.colorsCSS</code></pre>
                 const $oldDraw = $draw.querySelectorAll('.draw');
                 const $newDraw = document.createElement('div');
                 $newDraw.classList.add('draw');
-                $newDraw.innerHTML = poline.colors.map((c, i) => {
+                $newDraw.innerHTML = poline.colors().map((c, i) => {
                     return `
-          <div class="draw__item" style="--i: ${i / poline.colors.length
-                        }; --c: ${formatHex({ mode: currentHueModel, ...currentModelFn(c) })
+          <div class="draw__item" style="--i: ${i / poline.colors().length
+                        }; --c: ${formatHex({mode: currentHueModel, ...currentModelFn(c)})
                         }"></div>
         `;
                 }).join('');
@@ -1964,7 +1955,7 @@ poline.colorsCSS</code></pre>
                 $huelabels.forEach(($huelabel, i) => {
                     $huelabel.classList.remove('wheel__huelabel--active');
                     // if the HUE label is within the range of the current anchor point
-                    poline.anchorPoints.forEach(anchor => {
+                    poline.anchor_points().forEach(anchor => {
                         const currentHue = anchor.color[0];
                         const currentHueDec = Math.round(currentHue / 10);
 
@@ -1979,7 +1970,7 @@ poline.colorsCSS</code></pre>
 
                 $svg.innerHTML = '';
 
-                poline.anchorPoints.forEach(anchor => {
+                poline.anchor_points().forEach(anchor => {
                     const $circle = document.createElementNS(namespaceURI, 'circle');
                     $circle.setAttribute('cx', anchor.x * svgscale);
                     $circle.setAttribute('cy', anchor.y * svgscale);
@@ -1992,7 +1983,7 @@ poline.colorsCSS</code></pre>
 
                 const $polylines = document.createElementNS(namespaceURI, 'polyline');
                 $polylines.classList.add('wheel__line');
-                $polylines.setAttribute('points', poline.flattenedPoints.map(point => `${point.x * svgscale},${point.y * svgscale}`).join(' '));
+                $polylines.setAttribute('points', poline.flattened_points_web().map(point => `${point.x * svgscale},${point.y * svgscale}`).join(' '));
                 $svg.appendChild($polylines);
 
                 // calculate the length of the polyline
@@ -2000,7 +1991,7 @@ poline.colorsCSS</code></pre>
                 const length = $polylines.getTotalLength();
                 $polylines.style.setProperty('--length', length);
 
-                poline.flattenedPoints.forEach((point, i) => {
+                poline.flattened_points_web().forEach((point, i) => {
                     const $circle = document.createElementNS(namespaceURI, 'circle');
                     $circle.setAttribute('cx', point.x * svgscale);
                     $circle.setAttribute('cy', point.y * svgscale);
@@ -2010,14 +2001,14 @@ poline.colorsCSS</code></pre>
                     $circle.style.setProperty('--i', i);
                     $circle.style.setProperty('--circ', 2 * Math.PI * radius);
                     $circle.style.setProperty('--s', point.color[1]);
-                    const c = formatHex({ mode: currentHueModel, ...currentModelFn(point.color) });
+                    const c = formatHex({mode: currentHueModel, ...currentModelFn(point.color)});
                     $circle.style.setProperty('--c', c);
                     $svg.appendChild($circle);
                 });
 
-                let cssColors = [...poline.colorsCSS];
-                let colors = [...poline.colors].map(c => formatHex({ mode: currentHueModel, ...currentModelFn(c) }));
-                //colors = [...poline.colors].map(c => formatCss({ mode: 'p3', ...currentModelFn(c) }));
+                let cssColors = [...poline.colors_css()];
+                let colors = [...poline.colors()].map(c => formatHex({mode: currentHueModel, ...currentModelFn(c)}));
+                //colors = [...poline.colors()].map(c => formatCss({ mode: 'p3', ...currentModelFn(c) }));
                 document.documentElement.style.setProperty(
                     '--prev',
                     colorArrToSteppedGradient(colors)
@@ -2084,14 +2075,14 @@ poline.colorsCSS</code></pre>
 
             $allSelect.addEventListener('input', () => {
                 fnAll = $allSelect.value;
-                poline.positionFunction = positionFunctions[fnAll];
+                poline.set_position_fn(PositionScale[fnAll]);
                 updateSVG();
             });
 
             $xSelect.forEach($xSelect => {
                 $xSelect.addEventListener('input', () => {
                     fnx = $xSelect.value;
-                    poline.positionFunctionX = positionFunctions[fnx];
+                    poline.set_position_fn_x(PositionScale[fnx]);
                     updateSVG();
                     $xSelect.forEach($el => {
                         $el.value = fnx;
@@ -2103,7 +2094,7 @@ poline.colorsCSS</code></pre>
             $ySelect.forEach($ySelect => {
                 $ySelect.addEventListener('input', () => {
                     fny = $ySelect.value;
-                    poline.positionFunctionY = positionFunctions[fny];
+                    poline.set_position_fn_y(PositionScale[fny]);
                     updateSVG();
                     $ySelect.forEach($el => {
                         $el.value = fnx;
@@ -2114,7 +2105,7 @@ poline.colorsCSS</code></pre>
             $zSelect.forEach($zSelect => {
                 $zSelect.addEventListener('input', () => {
                     fnz = $zSelect.value;
-                    poline.positionFunctionZ = positionFunctions[fnz];
+                    poline.set_position_fn_z(PositionScale[fnz]);
                     updateSVG();
                     $zSelect.forEach($el => {
                         $el.value = fnz;
@@ -2124,14 +2115,14 @@ poline.colorsCSS</code></pre>
 
             $randomize.forEach($randomize => {
                 $randomize.addEventListener('click', () => {
-                    poline.anchorPoints.forEach(anchor => {
+                    poline.anchor_points().forEach(anchor => {
                         anchor.hsl = [
                             (anchor.color[0] + (-90 + Math.random() * 90)) % 360,
                             Math.random(),
                             anchor.color[2] + (-.05 + Math.random() * .1)
                         ];
                     });
-                    poline.updateAnchorPairs();
+                    poline.update_anchor_pairs();
                     updateSVG();
                 });
             });
@@ -2147,9 +2138,9 @@ poline.colorsCSS</code></pre>
                 const y = lastY = e.offsetY / $picker.offsetHeight;
 
                 if (!currentPoint) {
-
-                    currentPoint = poline.getClosestAnchorPoint({
-                        xyz: [x, y, null],
+                    console.log(PartialVector3.new(x, y, null) instanceof PartialVector3)
+                    currentPoint = poline.get_closest_anchor_point({
+                        xyz: PartialVector3.new(x, y, null),
                         maxDistance: .1
                     });
                     lastSelectedPoint = currentPoint;
@@ -2164,7 +2155,7 @@ poline.colorsCSS</code></pre>
 
                 if (currentPoint) {
                     e.stopPropagation();
-                    poline.updateAnchorPoint({ point: currentPoint, xyz: [x, y, currentPoint.z] });
+                    poline.update_anchor_point({point: ColorPointCollection.new({...currentPoint}), xyz: [x, y, currentPoint.z]});
                     updateSVG();
                 }
             });
@@ -2183,12 +2174,12 @@ poline.colorsCSS</code></pre>
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Delete' || e.key === 'Backspace') {
                     if (!lastSelectedPoint) return;
-                    poline.removeAnchorPoint({ point: lastSelectedPoint });
+                    poline.remove_anchor_point({point: lastSelectedPoint});
                     updateSVG();
                 }
 
                 if (e.key === 'p') {
-                    lastSelectedPoint = poline.addAnchorPoint({ xyz: [lastX, lastY, lastY] });
+                    lastSelectedPoint = poline.add_anchor_point(ColorPointCollection.new({xyz: [lastX, lastY, lastY]}));
                     updateSVG();
                 }
 
@@ -2204,8 +2195,9 @@ poline.colorsCSS</code></pre>
                     $color.value = formatHex(lastSelectedPoint.hslCSS);
                     $color.addEventListener('input', () => {
                         const hslObj = toHSL($color.value);
-                        poline.updateAnchorPoint({
-                            point: lastSelectedPoint, color: [hslObj.h || 0, hslObj.s, hslObj.l]
+                        console.log({lastSelectedPoint})
+                        poline.update_anchor_point({
+                            point: ColorPointCollection.new({...lastSelectedPoint}), color: [hslObj.h || 0, hslObj.s, hslObj.l]
                         });
 
                         updateSVG();
@@ -2215,12 +2207,12 @@ poline.colorsCSS</code></pre>
                 }
 
                 if (e.key === 'ArrowLeft') {
-                    poline.shiftHue(-2)
+                    poline.shift_hue(-2)
                     updateSVG();
                 }
 
                 if (e.key === 'ArrowRight') {
-                    poline.shiftHue(2)
+                    poline.shift_hue(2)
                     updateSVG();
                 }
             });
@@ -2233,7 +2225,7 @@ poline.colorsCSS</code></pre>
                 section: 'intro',
                 fn: () => {
                     console.log('intro');
-                    poline = new Poline({
+                    poline = poline_init({
                         numPoints: steps,
                     });
                     updateSVG();
@@ -2244,7 +2236,7 @@ poline.colorsCSS</code></pre>
                 fn: (section) => {
                     console.log('summoning');
                     exStartHue = Math.random() * 360;
-                    poline = new Poline({
+                    poline = poline_init({
                         anchorColors: [
                             [exStartHue, Math.random(), 0.8],
                             [(exStartHue + 60 + Math.random() * 180) % 360, Math.random(), Math.random() * .2],
@@ -2253,15 +2245,15 @@ poline.colorsCSS</code></pre>
                     });
                     updateSVG();
                     const $code = section.target.querySelector('[data-code]');
-                    $code.innerHTML = `new Poline({
+                    $code.innerHTML = `poline_init({
   anchorColors: [
-    [${Math.round(poline.anchorPoints[0].color[0])
-                        }, ${poline.anchorPoints[0].color[1].toFixed(2)
-                        }, ${poline.anchorPoints[0].color[2].toFixed(2)
+    [${Math.round(poline.anchor_points()[0].color[0])
+                        }, ${poline.anchor_points()[0].color[1].toFixed(2)
+                        }, ${poline.anchor_points()[0].color[2].toFixed(2)
                         }],
-    [${Math.round(poline.anchorPoints[1].color[0])
-                        }, ${poline.anchorPoints[1].color[1].toFixed(2)
-                        }, ${poline.anchorPoints[1].color[2].toFixed(2)
+    [${Math.round(poline.anchor_points()[1].color[0])
+                        }, ${poline.anchor_points()[1].color[1].toFixed(2)
+                        }, ${poline.anchor_points()[1].color[2].toFixed(2)
                         }],
     //... more colors
   ],
@@ -2277,7 +2269,7 @@ poline.colorsCSS</code></pre>
                     poline.numPoints = 6;
                     updateSVG();
                     const $code = section.target.querySelector('[data-code]');
-                    $code.innerHTML = `new Poline({
+                    $code.innerHTML = `poline_init({
   numPoints: 6,
 });`;
                     hljs.highlightElement($code);
@@ -2287,29 +2279,29 @@ poline.colorsCSS</code></pre>
                 section: 'anchors',
                 fn: (section) => {
                     console.log('anchors');
-                    if (poline.anchorPoints.length > 2) {
-                        poline.anchorPoints.forEach((anchor, i) => {
-                            if (i > 1) poline.removeAnchorPoint({ point: anchor });
+                    if (poline.anchor_points().length > 2) {
+                        poline.anchor_points().forEach((anchor, i) => {
+                            if (i > 1) poline.remove_anchor_point({point: anchor});
                         });
                     }
-                    poline.addAnchorPoint({ color: [(exStartHue + 60 + Math.random() * 180) % 360, Math.random(), .8] });
+                    poline.add_anchor_point(ColorPointCollection.new({color: [(exStartHue + 60 + Math.random() * 180) % 360, Math.random(), .8]}));
                     const $code = section.target.querySelector('[data-code]');
-                    const lastPoint = poline.anchorPoints[poline.anchorPoints.length - 1];
-                    $code.innerHTML = `poline.addAnchorPoint({
+                    const lastPoint = poline.anchor_points()[poline.anchor_points().length - 1];
+                    $code.innerHTML = `poline.add_anchor_point(ColorPointCollection.new({
   color: [${Math.round(lastPoint.color[0])
                         }, ${lastPoint.color[1].toFixed(2)
                         }, ${lastPoint.color[2].toFixed(2)
                         }]
-});
+}));
 
 // or
 
-poline.addAnchorPoint({
+poline.add_anchor_point(ColorPointCollection.new({
   xyz: [${lastPoint.position[0].toFixed(2)
                         }, ${lastPoint.position[1].toFixed(2)
                         }, ${lastPoint.position[2].toFixed(2)
                         }]
-});`;
+}));`;
                     hljs.highlightElement($code);
                     updateSVG();
                 },
@@ -2321,7 +2313,7 @@ poline.addAnchorPoint({
                     poline.closedLoop = true;
                     updateSVG();
                     const $code = section.target.querySelector('[data-code]');
-                    $code.innerHTML = `let poline = new Poline({
+                    $code.innerHTML = `let poline = poline_init({
   closedLoop: true,
 });
 // or
@@ -2334,21 +2326,21 @@ poline.closedLoop = true;`;
                 section: 'positionFunction',
                 fn: (section) => {
                     console.log('Position Function');
-                    if (poline.anchorPoints.length > 3) {
-                        poline.anchorPoints.forEach((anchor, i) => {
-                            if (i > 1) poline.removeAnchorPoint({ point: anchor });
+                    if (poline.anchor_points().length > 3) {
+                        poline.anchor_points().forEach((anchor, i) => {
+                            if (i > 1) poline.remove_anchor_point({point: anchor});
                         });
                     }
                     poline.closedLoop = false;
                     poline.positionFunction = positionFunctions.linearPosition;
-                    poline.updateAnchorPairs();
+                    poline.update_anchor_pairs();
                     const $code = section.target.querySelector('[data-code]');
                     $code.innerHTML = `import {
 Poline, positionFunctions
 } from 'poline';
 
-new Poline({
-  positionFunction: 
+poline_init({
+  positionFunction:
     positionFunctions.linearPosition,
 });`;
                     hljs.highlightElement($code);
@@ -2359,32 +2351,33 @@ new Poline({
                 section: 'positionFunctions',
                 fn: (section) => {
                     console.log('Position Functions');
-                    if (poline.anchorPoints.length > 3) {
-                        poline.anchorPoints.forEach((anchor, i) => {
-                            if (i > 1) poline.removeAnchorPoint({ point: anchor });
+                    if (poline.anchor_points().length > 3) {
+                        poline.anchor_points().forEach((anchor, i) => {
+                            if (i > 1) poline.remove_anchor_point({point: anchor});
                         });
                     }
                     poline.closedLoop = false;
-                    poline.positionFunctionX = positionFunctions[fnx];
-                    poline.positionFunctionY = positionFunctions[fny];
-                    poline.positionFunctionZ = positionFunctions[fnz];
+                    poline.set_position_fn_x(PositionScale[fnx]);
+                    poline.set_position_fn_y(PositionScale[fny]);
+                    poline.set_position_fn_z(PositionScale[fnz]);
                     $xSelect.forEach($xs => {
                         $xs.value = fnx;
                     });
+                    console.log($ySelect)
                     $ySelect.forEach($ys => {
                         $ys.value = fny;
                     });
                     $zSelect.forEach($zs => {
                         $zs.value = fnz;
                     });
-                    poline.updateAnchorPairs();
+                    poline.update_anchor_pairs();
                     const $code = section.target.querySelector('[data-code]');
-                    $code.innerHTML = `new Poline({
-  positionFunctionX: 
+                    $code.innerHTML = `poline_init({
+  positionFunctionX:
     positionFunctions.${poline.positionFunctionX.name},
-  positionFunctionY: 
+  positionFunctionY:
     positionFunctions.${poline.positionFunctionY.name},
-  positionFunctionZ: 
+  positionFunctionZ:
     positionFunctions.${poline.positionFunctionZ.name},
 });`;
                     hljs.highlightElement($code);
@@ -2396,9 +2389,9 @@ new Poline({
                 fn: (section) => {
                     console.log('closedLoop');
                     poline.closedLoop = true;
-                    poline.updateAnchorPairs();
+                    poline.update_anchor_pairs();
                     const $code = section.target.querySelector('[data-code]');
-                    $code.innerHTML = `new Poline({
+                    $code.innerHTML = `poline_init({
   closedLoop: true,
 });`;
                     hljs.highlightElement($code);
@@ -2409,10 +2402,10 @@ new Poline({
                 section: 'UpdatingAnchors',
                 fn: (section) => {
                     console.log('Updating Anchors');
-                    poline.anchorPoints.forEach((anchor, i) => {
+                    poline.anchor_points().forEach((anchor, i) => {
                         const hsl = anchor.color;
-                        poline.updateAnchorPoint({
-                            point: anchor,
+                        poline.update_anchor_point({
+                            point: ColorPointCollection.new({...anchor}),
                             color: [
                                 hsl[0] + Math.random() * 60 - 30,
                                 hsl[1],
@@ -2421,11 +2414,11 @@ new Poline({
                         });
                     });
                     const $code = section.target.querySelector('[data-code]');
-                    $code.innerHTML = `poline.updateAnchorPoint({
-  point: poline.anchorPoints[0],
-  color: [${Math.round(poline.anchorPoints[0].color[0])
-                        }, ${poline.anchorPoints[0].color[1].toFixed(2)
-                        }, ${poline.anchorPoints[0].color[2].toFixed(2)
+                    $code.innerHTML = `poline.update_anchor_point({
+  point: poline.anchor_points()[0],
+  color: [${Math.round(poline.anchor_points()[0].color[0])
+                        }, ${poline.anchor_points()[0].color[1].toFixed(2)
+                        }, ${poline.anchor_points()[0].color[2].toFixed(2)
                         }]
 });`;
                     hljs.highlightElement($code);
@@ -2446,24 +2439,24 @@ new Poline({
                     console.log('removeAnchor');
 
                     poline.closedLoop = false;
-                    if (poline.anchorPoints.length < 3) {
-                        while (poline.anchorPoints.length < 3) {
-                            poline.addAnchorPoint({ color: [(exStartHue + 60 + Math.random() * 180) % 360, Math.random(), .8] });
+                    if (poline.anchor_points().length < 3) {
+                        while (poline.anchor_points().length < 3) {
+                            poline.add_anchor_point(ColorPointCollection.new({color: [(exStartHue + 60 + Math.random() * 180) % 360, Math.random(), .8]}));
                         }
                     }
 
                     poline.invertedLightness = false;
                     invertedLightness = false;
-                    poline.removeAnchorPoint({ index: poline.anchorPoints.length - 1 });
+                    poline.remove_anchor_point({index: poline.anchor_points().length - 1});
                     const $code = section.target.querySelector('[data-code]');
-                    $code.innerHTML = `poline.removeAnchorPoint({
-  point: poline.anchorPoints[
-    poline.anchorPoints.length - 1
+                    $code.innerHTML = `poline.remove_anchor_point({
+  point: poline.anchor_points()[
+    poline.anchor_points().length - 1
   ]
 });
   // or
-poline.removeAnchorPoint({
-  index: poline.anchorPoints.length - 1
+poline.remove_anchor_point({
+  index: poline.anchor_points().length - 1
 });`;
                     hljs.highlightElement($code);
                     updateSVG();
@@ -2476,7 +2469,7 @@ poline.removeAnchorPoint({
                     poline.invertedLightness = true;
                     invertedLightness = true;
                     const $code = section.target.querySelector('[data-code]');
-                    $code.innerHTML = `new Poline({
+                    $code.innerHTML = `poline_init({
   invertedLightness: true,
 });
 // or
@@ -2499,24 +2492,24 @@ poline.invertedLightness = true;`;
                     const $code = section.target.querySelector('[data-code]');
                     $code.innerHTML = `import {Poline} from "poline";
 import {formatHex} from "culori";
-const poline = new Poline(/** options */);
+const poline = poline_init(/** options */);
 
-const OKHslColors = [...poline.colors].map(
-  c => formatHex({ 
-    mode: 'okhsl', 
+const OKHslColors = [...poline.colors()].map(
+  c => formatHex({
+    mode: 'okhsl',
     {
-      h: c.hsl[0], 
-      s: c.hsl[1], 
+      h: c.hsl[0],
+      s: c.hsl[1],
       l: c.hsl[2]}
   })
 );
-const LCHColors = [...poline.colors].map(
-  c => formatHex({ 
-    mode: 'lch', 
-    { 
+const LCHColors = [...poline.colors()].map(
+  c => formatHex({
+    mode: 'lch',
+    {
       h: hsl[0],
       c: hsl[1] * 51.484,
-      l: hsl[2] * 100,  
+      l: hsl[2] * 100,
     }
   })
 );`;
@@ -2529,10 +2522,10 @@ const LCHColors = [...poline.colors].map(
                 fn: (section) => {
                     console.log('hueShift');
                     const $code = section.target.querySelector('[data-code]');
-                    $code.innerHTML = `poline.shiftHue(1);`;
+                    $code.innerHTML = `poline.shift_hue(1);`;
                     hljs.highlightElement($code);
                     globalInterval = setInterval(() => {
-                        poline.shiftHue(1);
+                        poline.shift_hue(1);
                         updateSVG();
                     }, 16.66);
                 }
@@ -2582,7 +2575,7 @@ const LCHColors = [...poline.colors].map(
                 const $a = e.target;
                 if ($a.tagName !== 'A') return;
                 const $h2 = document.querySelector(`#${$a.getAttribute('href').replace('#', '')}`);
-                $h2.scrollIntoView({ behavior: 'smooth' });
+                $h2.scrollIntoView({behavior: 'smooth'});
             });
 
             // create an intersection onserver for all the `data-section`s

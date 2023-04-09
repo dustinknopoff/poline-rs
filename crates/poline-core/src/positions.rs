@@ -1,7 +1,10 @@
 use std::f32::consts::PI;
 
+use serde::{Serialize, Deserialize};
+use wasm_bindgen::prelude::wasm_bindgen;
 
-#[derive(Debug, Clone, Copy)]
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 /// Defines all possible scale function types for use in color generator
 pub enum PositionScale {
     Linear,
@@ -75,6 +78,7 @@ impl PositionScale {
     }
 }
 
+#[wasm_bindgen]
 pub fn position_from_scale(scale: PositionScale, t: f32, reverse: bool) -> f32 {
      use PositionScale::*;
         match scale {
